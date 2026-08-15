@@ -33,3 +33,43 @@ body{-webkit-overflow-scrolling:touch;overscroll-behavior-y:none}
 .source-code-btn{display:inline-block;font-size:9px;font-family:'DM Mono',monospace,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,0.2)!important;background:transparent;border:1px solid rgba(255,255,255,0.08);padding:7px 16px;border-radius:999px;text-decoration:none!important;transition:all .3s ease;opacity:.35}
 .source-code-btn:hover{opacity:.85;color:rgba(255,255,255,0.7)!important;border-color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.04)}
 
+/* Pixel Corners button styles */
+.download-btn.pixel-corners {
+  clip-path: polygon(
+    0 8px, 4px 8px, 4px 4px, 8px 4px, 8px 0,
+    calc(100% - 8px) 0, calc(100% - 8px) 4px, calc(100% - 4px) 4px, calc(100% - 4px) 8px, 100% 8px,
+    100% calc(100% - 8px), calc(100% - 4px) calc(100% - 8px), calc(100% - 4px) calc(100% - 4px), calc(100% - 8px) calc(100% - 4px), calc(100% - 8px) 100%,
+    8px 100%, 8px calc(100% - 4px), 4px calc(100% - 4px), 4px calc(100% - 8px), 0 calc(100% - 8px)
+  );
+  border-radius: 0 !important;
+  border: none;
+  cursor: pointer;
+}
+.button-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.svg-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.download-icon {
+  fill: currentColor;
+  width: 24px;
+  height: 24px;
+}
+.text-container {
+  display: flex;
+  align-items: center;
+}
+.text-container .text {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
