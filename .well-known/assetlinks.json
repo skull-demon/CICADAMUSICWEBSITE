@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "org.cicada",
+      "sha256_cert_fingerprints": [
+        "FA3CEF6856CBD492B4F55136F8D645B04B340499B6573A01F84043A3F5235094"
+      ]
+    }
+  }
+]
