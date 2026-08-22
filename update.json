@@ -1,6 +1,6 @@
 {
   "versionName": "13.5.0",
   "versionCode": 148,
-  "downloadUrl": "https://github.com/skull-demon/CICADAMUSICWEBSITE/releases/latest/download/cicada-latest.apk",
-  "notes": "Initial public build."
+  "downloadUrl": "https://github.com/skull-demon/CICADAMUSICWEBSITE/releases/download/v13.5.0/cicada-latest.apk",
+  "notes": "Cicada v13.5.0 — In-app updates, improved Spotify queue, lyrics glow sync, Chromecast support, profile page redesign, Ko-fi support"
 }
