@@ -6,9 +6,9 @@ import Support from "./pages/Support";
 import { Wrap, Logo, Download } from "./ui";
 
 const APK_URL =
-  "https://github.com/skull-demon/CICADAMUSICWEBSITE/releases/latest/download/cicada-latest.apk";
+  "https://github.com/skull-demon/cicada-app/releases/latest/download/app-release.apk";
 const SOURCE_URL =
-  "https://github.com/skull-demon/CICADAMUSICWEBSITE/releases/download/v13.5.0/cicada-source-v13.5.0.zip";
+  "https://github.com/skull-demon/cicada-app/releases/download/v0.3.0/cicada-source-v13.5.0.zip";
 
 const navItems = [
   { id: "overview", label: "Overview" },
@@ -208,7 +208,7 @@ export default function App() {
               items={[
                 {
                   l: "GitHub",
-                  href: "https://github.com/skull-demon/CICADAMUSICWEBSITE",
+                  href: "https://github.com/skull-demon/cicada-app",
                 },
                 {
                   l: "Ko-fi",

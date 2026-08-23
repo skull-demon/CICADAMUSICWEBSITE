@@ -10,9 +10,9 @@ import {
 } from "../ui";
 
 const APK_URL =
-  "https://github.com/skull-demon/CICADAMUSICWEBSITE/releases/latest/download/cicada-latest.apk";
+  "https://github.com/skull-demon/cicada-app/releases/latest/download/app-release.apk";
 const SOURCE_URL =
-  "https://github.com/skull-demon/CICADAMUSICWEBSITE/releases/download/v13.5.0/cicada-source-v13.5.0.zip";
+  "https://github.com/skull-demon/cicada-app/releases/download/v0.3.0/cicada-source-v13.5.0.zip";
 
 const channels = [
   {
@@ -30,7 +30,7 @@ const channels = [
     d: "Add the repository once and Obtainium checks for new releases automatically.",
     action: "Copy repo URL",
     meta: "Auto-updates · recommended",
-    url: "https://github.com/skull-demon/CICADAMUSICWEBSITE",
+    url: "https://github.com/skull-demon/cicada-app",
   },
   {
     n: "03",
