@@ -1,43 +1,53 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Home from "./pages/Home";
 import Binge from "./pages/Binge";
 import Get from "./pages/Get";
+import Support from "./pages/Support";
 import { Wrap, Logo, Download } from "./ui";
 
-const routes = [
-  { id: "home", label: "Overview" },
+const APK_URL =
+  "https://github.com/skull-demon/CICADAMUSICWEBSITE/releases/latest/download/cicada-latest.apk";
+const SOURCE_URL =
+  "https://github.com/skull-demon/CICADAMUSICWEBSITE/releases/download/v13.5.0/cicada-source-v13.5.0.zip";
+
+const navItems = [
+  { id: "overview", label: "Overview" },
   { id: "binge", label: "Binge" },
   { id: "download", label: "Download" },
+  { id: "support", label: "Support" },
 ];
 
 export default function App() {
-  const [page, setPage] = useState(() => {
-    const h = window.location.hash.replace("#/", "");
-    return routes.some((r) => r.id === h) ? h : "home";
-  });
-  const [menu, setMenu] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-
-  const go = (p: string) => {
-    setPage(p);
-    setMenu(false);
-    window.location.hash = `#/${p}`;
-    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
-  };
+  const [menu, setMenu] = useState(false);
+  const [activeSection, setActiveSection] = useState("overview");
 
   useEffect(() => {
-    const onHash = () => {
-      const h = window.location.hash.replace("#/", "");
-      if (routes.some((r) => r.id === h)) setPage(h);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 12);
+      // Track active section
+      for (const item of [...navItems].reverse()) {
+        const el = document.getElementById(item.id);
+        if (el && el.getBoundingClientRect().top < 200) {
+          setActiveSection(item.id);
+          break;
+        }
+      }
     };
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    window.addEventListener("hashchange", onHash);
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("hashchange", onHash);
-      window.removeEventListener("scroll", onScroll);
-    };
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const scrollTo = (id: string) => {
+    setMenu(false);
+    const el = document.getElementById(id);
+    if (el) {
+      const headerOffset = 80;
+      const elementPosition = el.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - headerOffset;
+      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+    }
+  };
 
   return (
     <div className="min-h-screen grain">
@@ -51,20 +61,27 @@ export default function App() {
       >
         <Wrap>
           <div className="h-[68px] flex items-center justify-between">
-            <button onClick={() => go("home")} className="flex items-center gap-2.5 group">
+            <button
+              onClick={() => scrollTo("overview")}
+              className="flex items-center gap-2.5 group"
+            >
               <Logo />
-              <span className="text-[15.5px] font-medium tracking-[-0.02em]">Cicada</span>
+              <span className="text-[15.5px] font-medium tracking-[-0.02em]">
+                Cicada
+              </span>
               <span className="mono text-[9.5px] tracking-[0.14em] uppercase text-[color:var(--ink-3)] border border-[color:var(--line)] rounded-full px-2 py-0.5 hidden sm:inline">
-                Android
+                beta v0.3
               </span>
             </button>
 
             <nav className="hidden md:flex items-center gap-9 text-[14px]">
-              {routes.map((r) => (
+              {navItems.map((r) => (
                 <button
                   key={r.id}
-                  onClick={() => go(r.id)}
-                  className={`nav-link tracking-[-0.01em] ${page === r.id ? "active" : ""}`}
+                  onClick={() => scrollTo(r.id)}
+                  className={`nav-link tracking-[-0.01em] ${
+                    activeSection === r.id ? "active" : ""
+                  }`}
                 >
                   {r.label}
                 </button>
@@ -72,12 +89,14 @@ export default function App() {
             </nav>
 
             <div className="flex items-center gap-3">
-              <button
-                onClick={() => go("download")}
-                className="btn btn-dark !py-2 !px-4 !text-[13px] hidden sm:inline-flex"
+              <a
+                href={APK_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-dark !py-2 !px-4 !text-[13px] hidden sm:inline-flex no-underline"
               >
                 <Download size={13} /> Get the app
-              </button>
+              </a>
               <button
                 onClick={() => setMenu(!menu)}
                 className="md:hidden w-9 h-9 flex items-center justify-center border border-[color:var(--line-2)] rounded-full"
@@ -97,12 +116,14 @@ export default function App() {
           <div className="md:hidden bg-white border-t border-[color:var(--line)]">
             <Wrap>
               <div className="py-4">
-                {routes.map((r) => (
+                {navItems.map((r) => (
                   <button
                     key={r.id}
-                    onClick={() => go(r.id)}
+                    onClick={() => scrollTo(r.id)}
                     className={`block w-full text-left py-3 text-[17px] tracking-[-0.02em] border-b border-[color:var(--line)] last:border-b-0 ${
-                      page === r.id ? "text-[color:var(--ink)]" : "text-[color:var(--ink-2)]"
+                      activeSection === r.id
+                        ? "text-[color:var(--ink)]"
+                        : "text-[color:var(--ink-2)]"
                     }`}
                   >
                     {r.label}
@@ -114,11 +135,23 @@ export default function App() {
         )}
       </header>
 
-      {/* ══════════ PAGE ══════════ */}
-      <main key={page} className="rise">
-        {page === "home" && <Home go={go} />}
-        {page === "binge" && <Binge go={go} />}
-        {page === "download" && <Get />}
+      {/* ══════════ SINGLE SCROLLABLE PAGE ══════════ */}
+      <main>
+        <section id="overview">
+          <Home />
+        </section>
+
+        <section id="binge">
+          <Binge />
+        </section>
+
+        <section id="download">
+          <Get />
+        </section>
+
+        <section id="support">
+          <Support />
+        </section>
       </main>
 
       {/* ══════════ FOOTER ══════════ */}
@@ -128,16 +161,18 @@ export default function App() {
             <div className="md:col-span-5">
               <div className="flex items-center gap-2.5">
                 <Logo />
-                <span className="text-[15.5px] font-medium tracking-[-0.02em]">Cicada</span>
+                <span className="text-[15.5px] font-medium tracking-[-0.02em]">
+                  Cicada
+                </span>
               </div>
               <p className="mt-4 text-[14px] leading-[1.65] text-[color:var(--ink-2)] max-w-[300px]">
-                A free, open-source music player for Android. YouTube Music and Spotify in
-                one library. Built on Metrolist and Spotui.
+                A free, open-source music player for Android. YouTube Music and
+                Spotify in one library. Built on Metrolist and SpotUI.
               </p>
               <div className="mt-6 flex items-center gap-2">
                 <span className="live-dot" />
                 <span className="mono text-[10.5px] tracking-[0.14em] uppercase text-[color:var(--ink-3)]">
-                  v13.5.0 · latest release
+                  beta v0.3 · latest
                 </span>
               </div>
             </div>
@@ -145,31 +180,52 @@ export default function App() {
             <FootCol
               title="Product"
               items={[
-                { l: "Overview", a: () => go("home") },
-                { l: "Binge", a: () => go("binge") },
-                { l: "Download", a: () => go("download") },
-                { l: "Changelog" },
+                { l: "Overview", a: () => scrollTo("overview") },
+                { l: "Binge", a: () => scrollTo("binge") },
+                { l: "Download", a: () => scrollTo("download") },
+                { l: "Support", a: () => scrollTo("support") },
               ]}
-            />            <FootCol
-              title="Project"
-              items={[{ l: "GitHub", href: "https://github.com/skull-demon/CICADAMUSICWEBSITE" }, { l: "Metrolist", href: "https://github.com/MetrolistGroup/Metrolist" }, { l: "Spotui", href: "https://github.com/SpotUI/SpotUI" }, { l: "Support on Ko-fi", href: "https://ko-fi.com/skullrenu/goal?g=0" }]} />
+            />
             <FootCol
-              title="Legal"
-              items={[{ l: "Privacy" }, { l: "Licence" }, { l: "Terms" }, { l: "DMCA" }]}
+              title="Built on"
+              items={[
+                {
+                  l: "Metrolist",
+                  href: "https://github.com/MetrolistGroup/Metrolist",
+                },
+                {
+                  l: "SpotUI",
+                  href: "https://github.com/SpotUI/SpotUI",
+                },
+                {
+                  l: "Source Code",
+                  href: SOURCE_URL,
+                },
+              ]}
+            />
+            <FootCol
+              title="Community"
+              items={[
+                {
+                  l: "GitHub",
+                  href: "https://github.com/skull-demon/CICADAMUSICWEBSITE",
+                },
+                {
+                  l: "Ko-fi",
+                  href: "https://ko-fi.com/skullrenu/goal?g=0",
+                },
+              ]}
             />
           </div>
 
           <div className="rule py-6 flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="mono text-[10.5px] tracking-[0.14em] uppercase text-[color:var(--ink-3)] text-center md:text-left">
-              © {new Date().getFullYear()} Cicada · Not affiliated with YouTube or Spotify
+              © {new Date().getFullYear()} Cicada · Not affiliated with YouTube
+              or Spotify
             </p>
-            <div className="flex gap-6 text-[13.5px] text-[color:var(--ink-2)]">
-              {["GitHub", "Discord", "Reddit"].map((s) => (
-                <a key={s} href="#" className="hover:text-[color:var(--ink)] transition">
-                  {s}
-                </a>
-              ))}
-            </div>
+            <p className="mono text-[10.5px] tracking-[0.14em] uppercase text-[color:var(--ink-3)]">
+              GPL-3.0 · Open Source
+            </p>
           </div>
         </Wrap>
       </footer>

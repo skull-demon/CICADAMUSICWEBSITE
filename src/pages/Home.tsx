@@ -1,14 +1,30 @@
 import Scene from "../Scene";
-import { Wrap, SectionHead, Tag, Accordion, Arrow, Download, Eyebrow } from "../ui";
+import {
+  Wrap,
+  SectionHead,
+  Tag,
+  Accordion,
+  Arrow,
+  Download,
+  Eyebrow,
+} from "../ui";
 
-const APK_URL = "https://github.com/skull-demon/CICADAMUSICWEBSITE/releases/latest/download/cicada-latest.apk";
-const GITHUB_URL = "https://github.com/skull-demon/CICADAMUSICWEBSITE";
-const METROLIST_URL = "https://github.com/MetrolistGroup/Metrolist";
-const SPOTUI_URL = "https://github.com/SpotUI/SpotUI";
+const APK_URL =
+  "https://github.com/skull-demon/CICADAMUSICWEBSITE/releases/latest/download/cicada-latest.apk";
+const METROLIST_URL =
+  "https://github.com/MetrolistGroup/Metrolist";
+const SPOTUI_URL =
+  "https://github.com/SpotUI/SpotUI";
 
 const sources = [
-  { name: "YouTube Music", detail: "Full catalogue, live sets, uploads, radio" },
-  { name: "Spotify", detail: "Playlists, liked songs, followed artists" },
+  {
+    name: "YouTube Music",
+    detail: "Full catalogue, live sets, uploads, radio",
+  },
+  {
+    name: "Spotify",
+    detail: "Playlists, liked songs, followed artists",
+  },
 ];
 
 const features = [
@@ -40,7 +56,7 @@ const features = [
   {
     n: "06",
     t: "Built on open source",
-    d: "Built on Metrolist (YouTube Music) and Spotui (Spotify). UI is original, playback pipelines are GPL-3.0 licensed.",
+    d: "Built on Metrolist (YouTube Music) and SpotUI (Spotify). UI is original, playback pipelines are GPL-3.0 licensed.",
   },
 ];
 
@@ -51,7 +67,7 @@ const faqs = [
   },
   {
     q: "Is there an iOS version?",
-    a: "No. Cicada is Android only. It's built on Metrolist and Spotui, both of which are Android projects, and there are no plans to port it.",
+    a: "No. Cicada is Android only. It's built on Metrolist and SpotUI, both of which are Android projects, and there are no plans to port it.",
   },
   {
     q: "How does lossless actually work?",
@@ -67,7 +83,7 @@ const faqs = [
   },
 ];
 
-export default function Home({ go }: { go: (p: string) => void }) {
+export default function Home() {
   return (
     <>
       {/* ══ HERO ══ */}
@@ -83,7 +99,10 @@ export default function Home({ go }: { go: (p: string) => void }) {
                 <Tag>No ads</Tag>
               </div>
 
-              <h1 className="display text-[13vw] md:text-[80px] mt-8 rise" style={{ animationDelay: ".06s" }}>
+              <h1
+                className="display text-[13vw] md:text-[80px] mt-8 rise"
+                style={{ animationDelay: ".06s" }}
+              >
                 Two libraries.
                 <br />
                 <span className="serif italic">One player.</span>
@@ -93,18 +112,23 @@ export default function Home({ go }: { go: (p: string) => void }) {
                 className="mt-7 text-[17px] md:text-[18.5px] leading-[1.6] text-[color:var(--ink-2)] max-w-[470px] rise"
                 style={{ animationDelay: ".14s" }}
               >
-                Cicada is a free, open-source music player for Android that puts YouTube
-                Music and Spotify in the same library — with lossless playback and
-                real-time listening rooms.
+                Cicada is a free, open-source music player for Android that puts
+                YouTube Music and Spotify in the same library — with lossless
+                playback and real-time listening rooms.
               </p>
 
-              <div className="mt-9 flex flex-wrap gap-3 rise" style={{ animationDelay: ".22s" }}>
-                <a href={APK_URL} target="_blank" rel="noopener noreferrer" className="btn btn-dark">
+              <div
+                className="mt-9 flex flex-wrap gap-3 rise"
+                style={{ animationDelay: ".22s" }}
+              >
+                <a
+                  href={APK_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-dark no-underline"
+                >
                   <Download /> Download for Android
                 </a>
-                <button onClick={() => go("binge")} className="btn btn-line">
-                  What is Binge <Arrow />
-                </button>
               </div>
 
               <div
@@ -112,8 +136,17 @@ export default function Home({ go }: { go: (p: string) => void }) {
                 style={{ animationDelay: ".3s" }}
               >
                 {sources.map((s, i) => (
-                  <div key={s.name} className={i === 1 ? "pl-6 border-l border-[color:var(--line)]" : ""}>
-                    <p className="text-[14px] tracking-[-0.01em]">{s.name}</p>
+                  <div
+                    key={s.name}
+                    className={
+                      i === 1
+                        ? "pl-6 border-l border-[color:var(--line)]"
+                        : ""
+                    }
+                  >
+                    <p className="text-[14px] tracking-[-0.01em]">
+                      {s.name}
+                    </p>
                     <p className="text-[12.5px] text-[color:var(--ink-3)] mt-0.5 max-w-[170px] leading-snug">
                       {s.detail}
                     </p>
@@ -123,16 +156,28 @@ export default function Home({ go }: { go: (p: string) => void }) {
             </div>
 
             <div className="md:col-span-6">
-              <div className="canvas-well aspect-square md:aspect-[4/5] relative rise" style={{ animationDelay: ".1s" }}>
+              <div
+                className="canvas-well aspect-square md:aspect-[4/5] relative rise"
+                style={{ animationDelay: ".1s" }}
+              >
                 <Scene kind="disc" zoom={6.4} />
                 <div className="absolute top-5 left-5 flex items-center gap-2">
-                  <span className="eq"><span /><span /><span /><span /></span>
+                  <span className="eq">
+                    <span />
+                    <span />
+                    <span />
+                    <span />
+                  </span>
                   <span className="eyebrow">Now playing</span>
                 </div>
                 <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between">
                   <div>
-                    <p className="text-[15px] tracking-[-0.01em]">Cicada Song</p>
-                    <p className="text-[12.5px] text-[color:var(--ink-3)]">Miro Sato</p>
+                    <p className="text-[15px] tracking-[-0.01em]">
+                      Cicada Song
+                    </p>
+                    <p className="text-[12.5px] text-[color:var(--ink-3)]">
+                      Miro Sato
+                    </p>
                   </div>
                   <span className="tag">FLAC · 24/96</span>
                 </div>
@@ -148,7 +193,10 @@ export default function Home({ go }: { go: (p: string) => void }) {
           {Array(2)
             .fill(0)
             .map((_, k) => (
-              <div key={k} className="flex items-center gap-12 pr-12 whitespace-nowrap">
+              <div
+                key={k}
+                className="flex items-center gap-12 pr-12 whitespace-nowrap"
+              >
                 {[
                   "YouTube Music",
                   "Spotify",
@@ -162,7 +210,7 @@ export default function Home({ go }: { go: (p: string) => void }) {
                   "No ads",
                   "Open source",
                   "Metrolist",
-                  "Spotui",
+                  "SpotUI",
                 ].map((w) => (
                   <span key={w} className="flex items-center gap-12">
                     <span className="mono text-[11px] tracking-[0.14em] uppercase text-[color:var(--ink-3)]">
@@ -199,7 +247,9 @@ export default function Home({ go }: { go: (p: string) => void }) {
               {features.map((f) => (
                 <div key={f.n}>
                   <p className="eyebrow">{f.n}</p>
-                  <p className="text-[20px] tracking-[-0.02em] mt-3">{f.t}</p>
+                  <p className="text-[20px] tracking-[-0.02em] mt-3">
+                    {f.t}
+                  </p>
                   <p className="text-[14.5px] leading-[1.7] text-[color:var(--ink-2)] mt-2.5">
                     {f.d}
                   </p>
@@ -227,31 +277,47 @@ export default function Home({ go }: { go: (p: string) => void }) {
                 <span className="serif italic">One app.</span>
               </h2>
               <p className="mt-5 text-[15px] leading-[1.65] text-[color:var(--ink-2)] max-w-[380px]">
-                Cicada is built on top of two open-source Android projects. The UI is
-                original — the playback pipelines, data models, and service integrations
-                are derived from these projects under the GPL-3.0 license.
+                Cicada is built on top of two open-source Android projects. The
+                UI is original — the playback pipelines, data models, and service
+                integrations are derived from these projects under the GPL-3.0
+                license.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
-                <a href={METROLIST_URL} target="_blank" rel="noopener noreferrer" className="btn btn-line">
+                <a
+                  href={METROLIST_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-line no-underline"
+                >
                   Metrolist <Arrow />
                 </a>
-                <a href={SPOTUI_URL} target="_blank" rel="noopener noreferrer" className="btn btn-line">
-                  Spotui <Arrow />
+                <a
+                  href={SPOTUI_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-line no-underline"
+                >
+                  SpotUI <Arrow />
                 </a>
               </div>
             </div>
             <div className="md:col-span-7 grid sm:grid-cols-2 gap-x-10 gap-y-8">
               <div>
                 <p className="eyebrow">Metrolist</p>
-                <p className="text-[19px] tracking-[-0.02em] mt-3">YouTube Music client</p>
+                <p className="text-[19px] tracking-[-0.02em] mt-3">
+                  YouTube Music client
+                </p>
                 <p className="text-[14.5px] leading-[1.7] text-[color:var(--ink-2)] mt-2.5">
-                  Full YouTube Music integration — search, playlists, liked songs,
-                  albums, artists, and radio. Provides the core playback engine.
+                  Full YouTube Music integration — search, playlists, liked
+                  songs, albums, artists, and radio. Provides the core playback
+                  engine.
                 </p>
               </div>
               <div>
-                <p className="eyebrow">Spotui</p>
-                <p className="text-[19px] tracking-[-0.02em] mt-3">Spotify client</p>
+                <p className="eyebrow">SpotUI</p>
+                <p className="text-[19px] tracking-[-0.02em] mt-3">
+                  Spotify client
+                </p>
                 <p className="text-[14.5px] leading-[1.7] text-[color:var(--ink-2)] mt-2.5">
                   Spotify integration — playlists, liked songs, followed artists,
                   and search. Resolves tracks for playback via YouTube Music.
@@ -279,30 +345,6 @@ export default function Home({ go }: { go: (p: string) => void }) {
                 <Accordion key={f.q} {...f} />
               ))}
             </div>
-          </div>
-        </Wrap>
-      </section>
-
-      {/* ══ CTA ══ */}
-      <section className="py-28 md:py-36">
-        <Wrap>
-          <div className="text-center">
-            <h2 className="display text-[44px] md:text-[64px]">
-              Ready?
-              <br />
-              <span className="serif italic">Start listening.</span>
-            </h2>
-            <div className="mt-9 flex flex-wrap gap-3 justify-center">
-              <a href={APK_URL} target="_blank" rel="noopener noreferrer" className="btn btn-dark">
-                <Download /> Download APK
-              </a>
-              <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="btn btn-line">
-                Source on GitHub <Arrow />
-              </a>
-            </div>
-            <p className="mono text-[10.5px] tracking-[0.14em] uppercase text-[color:var(--ink-3)] mt-7">
-              Not on Play Store · Not on iOS · Not affiliated with YouTube or Spotify
-            </p>
           </div>
         </Wrap>
       </section>

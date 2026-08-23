@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Scene from "../Scene";
-import { Wrap, SectionHead, Tag, Accordion, Arrow, Eyebrow } from "../ui";
+import { Wrap, SectionHead, Tag, Accordion, Eyebrow } from "../ui";
 
 const steps = [
   {
@@ -26,10 +26,22 @@ const steps = [
 ];
 
 const detail = [
-  { k: "Sync accuracy", v: "±40 ms", note: "Continuous clock reconciliation across members" },
+  {
+    k: "Sync accuracy",
+    v: "±40 ms",
+    note: "Continuous clock reconciliation across members",
+  },
   { k: "Room size", v: "Up to 32", note: "Beyond that, playback state gets unwieldy" },
-  { k: "Sources", v: "Mixed", note: "Members play from their own YT Music or Spotify account" },
-  { k: "Persistence", v: "Session", note: "Rooms close when the last member leaves" },
+  {
+    k: "Sources",
+    v: "Mixed",
+    note: "Members play from their own YT Music or Spotify account",
+  },
+  {
+    k: "Persistence",
+    v: "Session",
+    note: "Rooms close when the last member leaves",
+  },
 ];
 
 const members = [
@@ -67,7 +79,7 @@ const faqs = [
   },
 ];
 
-export default function Binge({ go }: { go: (p: string) => void }) {
+export default function Binge() {
   const [pos, setPos] = useState(72);
 
   useEffect(() => {
@@ -75,45 +87,35 @@ export default function Binge({ go }: { go: (p: string) => void }) {
     return () => clearInterval(i);
   }, []);
 
-  const fmt = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+  const fmt = (s: number) =>
+    `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 
   return (
     <>
-      {/* ══ HERO ══ */}
-      <section className="relative pt-28 md:pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0 hairgrid opacity-60 pointer-events-none" />
-        <Wrap className="relative">
+      {/* ══ BINGE HERO ══ */}
+      <section className="py-24 md:py-32 bg-[color:var(--bg-soft)] rule">
+        <Wrap>
           <div className="max-w-[720px]">
-            <div className="flex gap-2 rise">
+            <div className="flex gap-2">
               <Tag solid>Binge</Tag>
               <Tag>Included free</Tag>
             </div>
-            <h1 className="display text-[13vw] md:text-[84px] mt-8 rise" style={{ animationDelay: ".06s" }}>
+            <h1 className="display text-[13vw] md:text-[84px] mt-8">
               The same song,
               <br />
               <span className="serif italic">the same second.</span>
             </h1>
-            <p
-              className="mt-7 text-[17px] md:text-[18.5px] leading-[1.6] text-[color:var(--ink-2)] max-w-[520px] rise"
-              style={{ animationDelay: ".14s" }}
-            >
-              Binge is Cicada's shared listening room. Up to thirty-two people, one queue,
-              one playhead — no matter which service each track is streaming from.
+            <p className="mt-7 text-[17px] md:text-[18.5px] leading-[1.6] text-[color:var(--ink-2)] max-w-[520px]">
+              Binge is Cicada's shared listening room. Up to thirty-two people,
+              one queue, one playhead — no matter which service each track is
+              streaming from.
             </p>
-            <div className="mt-9 flex flex-wrap gap-3 rise" style={{ animationDelay: ".22s" }}>
-              <button onClick={() => go("download")} className="btn btn-dark">
-                Get Cicada <Arrow />
-              </button>
-              <button onClick={() => go("home")} className="btn btn-line">
-                Back to overview
-              </button>
-            </div>
           </div>
         </Wrap>
       </section>
 
       {/* ══ LIVE ROOM MOCK ══ */}
-      <section className="pb-24">
+      <section className="pb-24 pt-16">
         <Wrap>
           <div className="grid md:grid-cols-12 gap-4">
             {/* visual */}
@@ -130,7 +132,9 @@ export default function Binge({ go }: { go: (p: string) => void }) {
                     {members.map((m) => (
                       <span
                         key={m.name}
-                        className={`tag !text-[10px] ${m.host ? "tag-solid" : "!bg-white"}`}
+                        className={`tag !text-[10px] ${
+                          m.host ? "tag-solid" : "!bg-white"
+                        }`}
                       >
                         {m.name}
                         {m.host && " · host"}
@@ -147,7 +151,9 @@ export default function Binge({ go }: { go: (p: string) => void }) {
                 <div className="px-6 py-5 flex items-end justify-between border-b border-[color:var(--line)]">
                   <div>
                     <Eyebrow>Shared queue</Eyebrow>
-                    <p className="text-[19px] tracking-[-0.02em] mt-1.5">5 tracks · 2 sources</p>
+                    <p className="text-[19px] tracking-[-0.02em] mt-1.5">
+                      5 tracks · 2 sources
+                    </p>
                   </div>
                   <span className="tag">
                     <span className="live-dot" /> Synced
@@ -158,15 +164,24 @@ export default function Binge({ go }: { go: (p: string) => void }) {
                 <div className="px-6 py-5 border-b border-[color:var(--line)]">
                   <div className="flex items-center gap-4">
                     <div className="w-14 h-14 rounded-[10px] bg-[color:var(--ink)] shrink-0 flex items-center justify-center">
-                      <span className="eq"><span className="!bg-white" /><span className="!bg-white" /><span className="!bg-white" /><span className="!bg-white" /></span>
+                      <span className="eq">
+                        <span className="!bg-white" />
+                        <span className="!bg-white" />
+                        <span className="!bg-white" />
+                        <span className="!bg-white" />
+                      </span>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-[15.5px] tracking-[-0.01em] truncate">Nocturne in Static</p>
+                      <p className="text-[15.5px] tracking-[-0.01em] truncate">
+                        Nocturne in Static
+                      </p>
                       <p className="text-[13px] text-[color:var(--ink-3)] truncate">
                         Kaia Vorn · added by Ada
                       </p>
                     </div>
-                    <span className="tag !text-[10px] hidden sm:inline-flex">FLAC</span>
+                    <span className="tag !text-[10px] hidden sm:inline-flex">
+                      FLAC
+                    </span>
                   </div>
 
                   <div className="mt-4">
@@ -194,12 +209,16 @@ export default function Binge({ go }: { go: (p: string) => void }) {
                         {String(i + 2).padStart(2, "0")}
                       </span>
                       <div className="flex-1 min-w-0">
-                        <p className="text-[14.5px] tracking-[-0.01em] truncate">{q.t}</p>
+                        <p className="text-[14.5px] tracking-[-0.01em] truncate">
+                          {q.t}
+                        </p>
                         <p className="text-[12.5px] text-[color:var(--ink-3)] truncate">
                           {q.a} · added by {q.by}
                         </p>
                       </div>
-                      <span className="mono text-[11px] text-[color:var(--ink-3)]">{q.d}</span>
+                      <span className="mono text-[11px] text-[color:var(--ink-3)]">
+                        {q.d}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -235,10 +254,15 @@ export default function Binge({ go }: { go: (p: string) => void }) {
 
           <div className="grid md:grid-cols-4 gap-x-8 mt-14">
             {steps.map((s) => (
-              <div key={s.n} className="border-t border-[color:var(--line-2)] pt-6">
+              <div
+                key={s.n}
+                className="border-t border-[color:var(--line-2)] pt-6"
+              >
                 <p className="eyebrow">{s.n}</p>
                 <p className="text-[19px] tracking-[-0.02em] mt-3">{s.t}</p>
-                <p className="text-[14px] leading-[1.65] text-[color:var(--ink-2)] mt-2.5">{s.d}</p>
+                <p className="text-[14px] leading-[1.65] text-[color:var(--ink-2)] mt-2.5">
+                  {s.d}
+                </p>
               </div>
             ))}
           </div>
@@ -257,16 +281,22 @@ export default function Binge({ go }: { go: (p: string) => void }) {
                 <span className="serif italic">on real networks.</span>
               </h2>
               <p className="mt-6 text-[16px] leading-[1.65] text-[color:var(--ink-2)] max-w-[480px]">
-                Each device reports its playhead against a shared clock several times a
-                second. Correction is applied to playback rate rather than by seeking, so
-                drift is absorbed without anyone hearing a jump.
+                Each device reports its playhead against a shared clock several
+                times a second. Correction is applied to playback rate rather
+                than by seeking, so drift is absorbed without anyone hearing a
+                jump.
               </p>
 
               <div className="grid sm:grid-cols-2 gap-x-10 mt-10">
                 {detail.map((d) => (
-                  <div key={d.k} className="border-t border-[color:var(--line)] py-6">
+                  <div
+                    key={d.k}
+                    className="border-t border-[color:var(--line)] py-6"
+                  >
                     <p className="eyebrow">{d.k}</p>
-                    <p className="text-[28px] tracking-[-0.03em] mt-2 leading-none">{d.v}</p>
+                    <p className="text-[28px] tracking-[-0.03em] mt-2 leading-none">
+                      {d.v}
+                    </p>
                     <p className="text-[13px] text-[color:var(--ink-3)] mt-2.5 leading-snug">
                       {d.note}
                     </p>
@@ -280,18 +310,20 @@ export default function Binge({ go }: { go: (p: string) => void }) {
                 <Scene kind="wave" zoom={5.4} />
               </div>
               <div className="grid grid-cols-3 gap-4 mt-4">
-                {["Shared clock", "Rate correction", "Silent rejoin"].map((t) => (
-                  <div key={t} className="card p-4">
-                    <p className="text-[13.5px] tracking-[-0.01em]">{t}</p>
-                  </div>
-                ))}
+                {["Shared clock", "Rate correction", "Silent rejoin"].map(
+                  (t) => (
+                    <div key={t} className="card p-4">
+                      <p className="text-[13.5px] tracking-[-0.01em]">{t}</p>
+                    </div>
+                  )
+                )}
               </div>
             </div>
           </div>
         </Wrap>
       </section>
 
-      {/* ══ FAQ ══ */}
+      {/* ══ BINGE FAQ ══ */}
       <section className="py-24 rule">
         <Wrap>
           <div className="grid md:grid-cols-12 gap-10">
@@ -308,32 +340,6 @@ export default function Binge({ go }: { go: (p: string) => void }) {
                 <Accordion key={f.q} {...f} />
               ))}
             </div>
-          </div>
-        </Wrap>
-      </section>
-
-      {/* ══ CTA ══ */}
-      <section className="py-28 md:py-36 bg-[color:var(--ink)] text-white">
-        <Wrap>
-          <div className="max-w-[620px]">
-            <p className="mono text-[10.5px] tracking-[0.18em] uppercase text-white/45">
-              Binge · included in every install
-            </p>
-            <h2 className="display text-[44px] md:text-[68px] mt-6">
-              Open a room
-              <br />
-              <span className="serif italic">tonight.</span>
-            </h2>
-            <p className="mt-6 text-[16.5px] leading-[1.6] text-white/60 max-w-[440px]">
-              No separate account, no upgrade, no seat count to worry about. It's in the
-              app the moment you install it.
-            </p>
-            <button
-              onClick={() => go("download")}
-              className="btn mt-9 bg-white text-[color:var(--ink)] hover:bg-white/90"
-            >
-              Download Cicada <Arrow />
-            </button>
           </div>
         </Wrap>
       </section>

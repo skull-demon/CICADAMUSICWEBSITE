@@ -88,18 +88,15 @@ export function Accordion({ q, a }: { q: string; a: string }) {
 
 /* ─────────── icons ─────────── */
 
+import cicadaLogo from "./assets/cicada-logo.png";
+
 export function Logo({ dark = true }: { dark?: boolean }) {
   return (
-    <svg viewBox="0 0 28 28" className="w-[26px] h-[26px]" fill="none">
-      <rect width="28" height="28" rx="8" fill={dark ? "#0d0d0f" : "#fff"} />
-      <path
-        d="M6 14h2.2l2-5.5L13 19.5l2.4-8L17 15h5"
-        stroke={dark ? "#fff" : "#0d0d0f"}
-        strokeWidth="1.7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <img
+      src={cicadaLogo}
+      alt="Cicada"
+      className="w-[30px] h-[30px] rounded-lg object-cover"
+    />
   );
 }
 
