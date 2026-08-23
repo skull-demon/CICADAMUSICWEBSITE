@@ -1,6 +1,6 @@
 {
-  "versionName": "13.5.2",
-  "versionCode": 150,
-  "downloadUrl": "https://github.com/skull-demon/cicada-app/releases/download/v0.3.2/cicada-release.apk",
-  "notes": "Profile close button fix, Binge avatar name initials, performance optimizations"
+  "versionName": "13.5.3",
+  "versionCode": 151,
+  "downloadUrl": "https://github.com/skull-demon/cicada-app/releases/download/v0.3.3/cicada-release.apk",
+  "changelog": "v0.3.3 — DLNA casting, profile fix, binge avatars, performance optimization, search add-to-queue"
 }
