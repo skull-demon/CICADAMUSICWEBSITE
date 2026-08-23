@@ -19,8 +19,8 @@ const KOFI_URL = "https://ko-fi.com/skullrenu/goal?g=0";
 const navItems = [
   { id: "overview", label: "Overview" },
   { id: "binge", label: "Binge" },
-  { id: "download", label: "Download" },
   { id: "support", label: "Support" },
+  { id: "download", label: "Download" },
 ];
 
 const legalPages = ["privacy", "license", "terms"];
@@ -200,11 +200,11 @@ export default function App() {
             <section id="binge">
               <Binge />
             </section>
-            <section id="download">
-              <Get />
-            </section>
             <section id="support">
               <Support />
+            </section>
+            <section id="download">
+              <Get />
             </section>
           </>
         )}
@@ -238,8 +238,8 @@ export default function App() {
               items={[
                 { l: "Overview", a: () => scrollTo("overview") },
                 { l: "Binge", a: () => scrollTo("binge") },
-                { l: "Download", a: () => scrollTo("download") },
                 { l: "Support", a: () => scrollTo("support") },
+                { l: "Download", a: () => scrollTo("download") },
               ]}
             />
             <FootCol

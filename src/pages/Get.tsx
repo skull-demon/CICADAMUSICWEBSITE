@@ -13,12 +13,13 @@ const APK_URL =
   "https://github.com/skull-demon/cicada-app/releases/latest/download/app-release.apk";
 const SOURCE_URL =
   "https://github.com/skull-demon/cicada-app/releases/download/v0.3.0/cicada-source-v13.5.0.zip";
+const KOFI_URL = "https://ko-fi.com/skullrenu/goal?g=0";
 
 const channels = [
   {
     n: "01",
-    t: "Direct APK",
-    d: "Signed release from GitHub. Universal build that works on all Android 8.0+ devices.",
+    t: "Download APK",
+    d: "Signed release from GitHub. Universal build that works on all Android 8.0+ devices. Cicada checks for updates automatically on launch.",
     action: "Download APK",
     meta: "beta v0.3 · ~190 MB · universal",
     primary: true,
@@ -26,16 +27,8 @@ const channels = [
   },
   {
     n: "02",
-    t: "Obtainium",
-    d: "Add the repository once and Obtainium checks for new releases automatically.",
-    action: "Copy repo URL",
-    meta: "Auto-updates · recommended",
-    url: "https://github.com/skull-demon/cicada-app",
-  },
-  {
-    n: "03",
     t: "Source code",
-    d: "Download the full source code. Clone it, build it, modify it. GPL-3.0 licensed.",
+    d: "Clone it, build it, modify it. Full source code with build instructions. GPL-3.0 licensed — fork it and make it your own.",
     action: "Download source",
     meta: "GPL-3.0 · Kotlin · Compose",
     url: SOURCE_URL,
@@ -118,8 +111,7 @@ export default function Get() {
               </h1>
               <p className="mt-7 text-[17px] leading-[1.6] text-[color:var(--ink-2)] max-w-[440px]">
                 A free, open-source YouTube Music and Spotify client for
-                Android. Not available on the Play Store, and not available on
-                iOS.
+                Android. One library, two services, zero ads.
               </p>
               <div className="mt-9 flex flex-wrap gap-3">
                 <a
@@ -131,12 +123,12 @@ export default function Get() {
                   <Download /> Download APK
                 </a>
                 <a
-                  href={SOURCE_URL}
+                  href={KOFI_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn btn-line no-underline"
+                  className="btn !bg-[#FF5E5B] !text-white hover:!bg-[#e5534f] no-underline"
                 >
-                  Download source <Arrow />
+                  Support on Ko-fi
                 </a>
               </div>
               <p className="mono text-[10.5px] tracking-[0.14em] uppercase text-[color:var(--ink-3)] mt-6">
@@ -153,22 +145,73 @@ export default function Get() {
         </Wrap>
       </section>
 
+      {/* ══ HOW IT WORKS ══ */}
+      <section className="py-24 md:py-32">
+        <Wrap>
+          <SectionHead
+            num="01"
+            label="How it works"
+            title={
+              <>
+                Two services.
+                <br />
+                <span className="serif italic">One player.</span>
+              </>
+            }
+            lede="Cicada connects to YouTube Music and Spotify through their public APIs. You sign in to each service separately — your credentials go straight to YouTube or Spotify, never through us. The app searches both at once, merges the results, and plays whatever you pick."
+          />
+
+          <div className="grid md:grid-cols-3 gap-x-10 gap-y-8 mt-14">
+            <div className="border-t border-[color:var(--line-2)] pt-6">
+              <p className="eyebrow">Search</p>
+              <p className="text-[19px] tracking-[-0.02em] mt-3">
+                One search, both catalogues
+              </p>
+              <p className="text-[14px] leading-[1.65] text-[color:var(--ink-2)] mt-2.5">
+                Type once. Results come from YouTube Music and Spotify in a
+                single list, deduplicated, with the source marked.
+              </p>
+            </div>
+            <div className="border-t border-[color:var(--line-2)] pt-6">
+              <p className="eyebrow">Queue</p>
+              <p className="text-[19px] tracking-[-0.02em] mt-3">
+                Mix and match freely
+              </p>
+              <p className="text-[14px] leading-[1.65] text-[color:var(--ink-2)] mt-2.5">
+                Put a Spotify master and a YouTube-only live recording back to
+                back. Playback hands off between sources without a gap.
+              </p>
+            </div>
+            <div className="border-t border-[color:var(--line-2)] pt-6">
+              <p className="eyebrow">Library</p>
+              <p className="text-[19px] tracking-[-0.02em] mt-3">
+                Your playlists, unified
+              </p>
+              <p className="text-[14px] leading-[1.65] text-[color:var(--ink-2)] mt-2.5">
+                Import playlists from both services. Export everything as JSON
+                or M3U whenever you want. No lock-in.
+              </p>
+            </div>
+          </div>
+        </Wrap>
+      </section>
+
       {/* ══ CHANNELS ══ */}
       <section className="py-20 md:py-24 rule">
         <Wrap>
           <SectionHead
-            num="01"
+            num="02"
             label="Get it"
             title={
               <>
-                Pick a channel.
+                One file.
                 <br />
-                <span className="serif italic">They're all the same build.</span>
+                <span className="serif italic">That's it.</span>
               </>
             }
           />
 
-          <div className="grid md:grid-cols-3 gap-4 mt-14">
+          <div className="grid md:grid-cols-2 gap-4 mt-14 max-w-[700px]">
             {channels.map((c) => (
               <div
                 key={c.n}
@@ -223,7 +266,7 @@ export default function Get() {
         <Wrap>
           <div className="grid md:grid-cols-12 gap-10 items-center">
             <div className="md:col-span-4">
-              <Eyebrow>02 — Requirements</Eyebrow>
+              <Eyebrow>03 — Requirements</Eyebrow>
               <h2 className="display text-[32px] md:text-[42px] mt-5">
                 What you
                 <br />
@@ -259,7 +302,7 @@ export default function Get() {
         <Wrap>
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-5">
-              <Eyebrow>03 — First run</Eyebrow>
+              <Eyebrow>04 — First run</Eyebrow>
               <h2 className="display text-[36px] md:text-[50px] mt-5">
                 Three minutes,
                 <br />
@@ -292,12 +335,12 @@ export default function Get() {
         </Wrap>
       </section>
 
-      {/* ══ DOWNLOAD FAQ ══ */}
+      {/* ══ FAQ ══ */}
       <section className="py-24 rule bg-[color:var(--bg-soft)]">
         <Wrap>
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
-              <Eyebrow>04 — FAQ</Eyebrow>
+              <Eyebrow>05 — FAQ</Eyebrow>
               <h2 className="display text-[32px] md:text-[40px] mt-5">
                 Before you
                 <br />

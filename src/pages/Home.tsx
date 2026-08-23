@@ -77,7 +77,7 @@ const faqs = [
   },
   {
     q: "Why isn't it on the Play Store?",
-    a: "Distribution rules make a client like this difficult to list. The APK is signed and published on GitHub, and Obtainium will keep it updated automatically.",
+    a: "Distribution rules make a client like this difficult to list. The APK is signed and published on GitHub, and Cicada has a built-in updater that checks for new releases automatically.",
   },
   {
     q: "What is Cicada built on?",
