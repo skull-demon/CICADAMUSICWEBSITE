@@ -1,14 +1,20 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Home from "./pages/Home";
 import Binge from "./pages/Binge";
 import Get from "./pages/Get";
 import Support from "./pages/Support";
+import Privacy from "./pages/Privacy";
+import License from "./pages/License";
+import Terms from "./pages/Terms";
 import { Wrap, Logo, Download } from "./ui";
 
 const APK_URL =
   "https://github.com/skull-demon/cicada-app/releases/latest/download/app-release.apk";
 const SOURCE_URL =
   "https://github.com/skull-demon/cicada-app/releases/download/v0.3.0/cicada-source-v13.5.0.zip";
+const DISCORD_URL = "https://discord.gg/ufhthjgGe";
+const GITHUB_URL = "https://github.com/skull-demon/cicada-app";
+const KOFI_URL = "https://ko-fi.com/skullrenu/goal?g=0";
 
 const navItems = [
   { id: "overview", label: "Overview" },
@@ -17,15 +23,38 @@ const navItems = [
   { id: "support", label: "Support" },
 ];
 
+const legalPages = ["privacy", "license", "terms"];
+
 export default function App() {
+  const [page, setPage] = useState(() => {
+    const h = window.location.hash.replace("#/", "");
+    if (legalPages.includes(h)) return h;
+    return "overview";
+  });
   const [scrolled, setScrolled] = useState(false);
   const [menu, setMenu] = useState(false);
   const [activeSection, setActiveSection] = useState("overview");
 
+  const isLegalPage = legalPages.includes(page);
+
   useEffect(() => {
+    const onHash = () => {
+      const h = window.location.hash.replace("#/", "");
+      if (legalPages.includes(h)) {
+        setPage(h);
+        window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+      } else if (navItems.some((r) => r.id === h)) {
+        setPage(h);
+      }
+    };
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, []);
+
+  useEffect(() => {
+    if (isLegalPage) return;
     const onScroll = () => {
       setScrolled(window.scrollY > 12);
-      // Track active section
       for (const item of [...navItems].reverse()) {
         const el = document.getElementById(item.id);
         if (el && el.getBoundingClientRect().top < 200) {
@@ -36,17 +65,34 @@ export default function App() {
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [isLegalPage]);
 
   const scrollTo = (id: string) => {
     setMenu(false);
+    if (isLegalPage) {
+      setPage("overview");
+      window.location.hash = "";
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) {
+          const offset = el.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: offset, behavior: "smooth" });
+        }
+      }, 50);
+      return;
+    }
     const el = document.getElementById(id);
     if (el) {
-      const headerOffset = 80;
-      const elementPosition = el.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.scrollY - headerOffset;
-      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+      const offset = el.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: offset, behavior: "smooth" });
     }
+  };
+
+  const goToLegal = (id: string) => {
+    setMenu(false);
+    setPage(id);
+    window.location.hash = `#/${id}`;
+    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
   };
 
   return (
@@ -54,7 +100,7 @@ export default function App() {
       {/* ══════════ NAV ══════════ */}
       <header
         className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-          scrolled
+          scrolled || isLegalPage
             ? "bg-white/85 backdrop-blur-xl border-b border-[color:var(--line)]"
             : "bg-transparent border-b border-transparent"
         }`}
@@ -62,7 +108,11 @@ export default function App() {
         <Wrap>
           <div className="h-[68px] flex items-center justify-between">
             <button
-              onClick={() => scrollTo("overview")}
+              onClick={() => {
+                setPage("overview");
+                window.location.hash = "";
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
               className="flex items-center gap-2.5 group"
             >
               <Logo />
@@ -80,7 +130,7 @@ export default function App() {
                   key={r.id}
                   onClick={() => scrollTo(r.id)}
                   className={`nav-link tracking-[-0.01em] ${
-                    activeSection === r.id ? "active" : ""
+                    !isLegalPage && activeSection === r.id ? "active" : ""
                   }`}
                 >
                   {r.label}
@@ -111,7 +161,6 @@ export default function App() {
           </div>
         </Wrap>
 
-        {/* mobile menu */}
         {menu && (
           <div className="md:hidden bg-white border-t border-[color:var(--line)]">
             <Wrap>
@@ -121,7 +170,7 @@ export default function App() {
                     key={r.id}
                     onClick={() => scrollTo(r.id)}
                     className={`block w-full text-left py-3 text-[17px] tracking-[-0.02em] border-b border-[color:var(--line)] last:border-b-0 ${
-                      activeSection === r.id
+                      !isLegalPage && activeSection === r.id
                         ? "text-[color:var(--ink)]"
                         : "text-[color:var(--ink-2)]"
                     }`}
@@ -135,23 +184,30 @@ export default function App() {
         )}
       </header>
 
-      {/* ══════════ SINGLE SCROLLABLE PAGE ══════════ */}
+      {/* ══════════ PAGE ══════════ */}
       <main>
-        <section id="overview">
-          <Home />
-        </section>
-
-        <section id="binge">
-          <Binge />
-        </section>
-
-        <section id="download">
-          <Get />
-        </section>
-
-        <section id="support">
-          <Support />
-        </section>
+        {isLegalPage ? (
+          <>
+            {page === "privacy" && <Privacy />}
+            {page === "license" && <License />}
+            {page === "terms" && <Terms />}
+          </>
+        ) : (
+          <>
+            <section id="overview">
+              <Home />
+            </section>
+            <section id="binge">
+              <Binge />
+            </section>
+            <section id="download">
+              <Get />
+            </section>
+            <section id="support">
+              <Support />
+            </section>
+          </>
+        )}
       </main>
 
       {/* ══════════ FOOTER ══════════ */}
@@ -193,27 +249,16 @@ export default function App() {
                   l: "Metrolist",
                   href: "https://github.com/MetrolistGroup/Metrolist",
                 },
-                {
-                  l: "SpotUI",
-                  href: "https://github.com/SpotUI/SpotUI",
-                },
-                {
-                  l: "Source Code",
-                  href: SOURCE_URL,
-                },
+                { l: "SpotUI", href: "https://github.com/SpotUI/SpotUI" },
+                { l: "Source Code", href: SOURCE_URL },
               ]}
             />
             <FootCol
-              title="Community"
+              title="Legal"
               items={[
-                {
-                  l: "GitHub",
-                  href: "https://github.com/skull-demon/cicada-app",
-                },
-                {
-                  l: "Ko-fi",
-                  href: "https://ko-fi.com/skullrenu/goal?g=0",
-                },
+                { l: "Privacy", a: () => goToLegal("privacy") },
+                { l: "Licence", a: () => goToLegal("license") },
+                { l: "Terms", a: () => goToLegal("terms") },
               ]}
             />
           </div>
@@ -223,9 +268,32 @@ export default function App() {
               © {new Date().getFullYear()} Cicada · Not affiliated with YouTube
               or Spotify
             </p>
-            <p className="mono text-[10.5px] tracking-[0.14em] uppercase text-[color:var(--ink-3)]">
-              GPL-3.0 · Open Source
-            </p>
+            <div className="flex gap-6 text-[13.5px]">
+              <a
+                href={GITHUB_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[color:var(--ink-2)] hover:text-[color:var(--ink)] transition no-underline"
+              >
+                GitHub
+              </a>
+              <a
+                href={DISCORD_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[color:var(--ink-2)] hover:text-[color:var(--ink)] transition no-underline"
+              >
+                Discord
+              </a>
+              <a
+                href={KOFI_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[color:var(--ink-2)] hover:text-[color:var(--ink)] transition no-underline"
+              >
+                Ko-fi
+              </a>
+            </div>
           </div>
         </Wrap>
       </footer>
