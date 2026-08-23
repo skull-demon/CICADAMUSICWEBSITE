@@ -1,0 +1,7 @@
+node_modules/
+dist/
+apk/
+source/
+*.apk
+*.zip
+.DS_Store
