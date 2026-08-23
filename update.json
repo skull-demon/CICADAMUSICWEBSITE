@@ -1,6 +1,6 @@
 {
-  "versionName": "0.3.0",
-  "versionCode": 3,
-  "downloadUrl": "https://github.com/skull-demon/cicada-app/releases/download/v0.3.0/app-release.apk",
-  "notes": "Cicada beta v0.3 — In-app updates, improved Spotify queue, lyrics glow sync, DLNA casting, profile page redesign, Ko-fi support"
+  "versionName": "0.3.1",
+  "versionCode": 149,
+  "downloadUrl": "https://github.com/skull-demon/cicada-app/releases/download/v0.3.1/cicada-release.apk",
+  "notes": "Performance optimizations, parallel Spotify resolution, add-to-queue button, drag gesture fix"
 }
