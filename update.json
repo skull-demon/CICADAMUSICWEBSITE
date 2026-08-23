@@ -1,5 +1,5 @@
 {
-  "versionName": "0.3.1",
+  "versionName": "13.5.1",
   "versionCode": 149,
   "downloadUrl": "https://github.com/skull-demon/cicada-app/releases/download/v0.3.1/cicada-release.apk",
   "notes": "Performance optimizations, parallel Spotify resolution, add-to-queue button, drag gesture fix"
