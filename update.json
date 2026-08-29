@@ -1,6 +1,6 @@
 {
-  "versionName": "13.5.4",
-  "versionCode": 152,
-  "downloadUrl": "https://github.com/skull-demon/cicada-app/releases/download/v0.3.4/cicada-release.apk",
-  "changelog": "v0.3.4 — Theme persistence, Chromecast fix, update notification fixes, Grid theme, playback fixes"
+  "versionName": "13.5.0",
+  "versionCode": 148,
+  "downloadUrl": "https://github.com/skull-demon/cicada-app/releases/download/v13.5.0/app-release.apk",
+  "notes": "Cicada 13.5.0 — Theme persistence, Chromecast fix, update notification fixes, Grid theme, C2K theme, Sauna theme, playback fixes"
 }

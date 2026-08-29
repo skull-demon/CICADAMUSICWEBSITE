@@ -2,7 +2,7 @@ import Scene from "../Scene";
 import { Wrap, Tag, Download, Arrow } from "../ui";
 
 const APK_URL =
-  "https://github.com/skull-demon/cicada-app/releases/latest/download/app-release.apk";
+  "https://github.com/skull-demon/cicada-app/releases/download/v0.3.4/app-release.apk";
 const SOURCE_URL =
   "https://github.com/skull-demon/cicada-app/releases/download/v0.3.0/cicada-source-v13.5.0.zip";
 const KOFI_URL = "https://ko-fi.com/skullrenu/goal?g=0";
@@ -30,8 +30,7 @@ export default function Get() {
             <div className="mt-9 flex flex-wrap gap-3">
               <a
                 href={APK_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+                download="cicada.apk"
                 className="btn btn-dark no-underline"
               >
                 <Download /> Download APK

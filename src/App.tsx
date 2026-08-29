@@ -9,7 +9,7 @@ import Terms from "./pages/Terms";
 import { Wrap, Logo, Download } from "./ui";
 
 const APK_URL =
-  "https://github.com/skull-demon/cicada-app/releases/latest/download/app-release.apk";
+  "https://github.com/skull-demon/cicada-app/releases/download/v0.3.4/app-release.apk";
 const SOURCE_URL =
   "https://github.com/skull-demon/cicada-app/releases/download/v0.3.0/cicada-source-v13.5.0.zip";
 const DISCORD_URL = "https://discord.gg/ufhthjgGe";
@@ -141,8 +141,7 @@ export default function App() {
             <div className="flex items-center gap-3">
               <a
                 href={APK_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+                download="cicada.apk"
                 className="btn btn-dark !py-2 !px-4 !text-[13px] hidden sm:inline-flex no-underline"
               >
                 <Download size={13} /> Get the app
