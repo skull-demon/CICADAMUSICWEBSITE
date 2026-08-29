@@ -10,7 +10,7 @@ import {
 } from "../ui";
 
 const APK_URL =
-  "https://github.com/skull-demon/cicada-app/releases/download/v0.3.4/app-release.apk";
+  "https://github.com/skull-demon/cicada-app/releases/download/v13.5.0/app-release.apk";
 const SOURCE_URL =
   "https://github.com/skull-demon/cicada-app/releases/download/v0.3.0/cicada-source-v13.5.0.zip";
 const METROLIST_URL =
